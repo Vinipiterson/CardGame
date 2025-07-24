@@ -1,0 +1,3 @@
+[submodule "Plugins/CommonUIStarterKit"]
+	path = Plugins/CommonUIStarterKit
+	url = https://github.com/Vinipiterson/CommonUIStarterKit.git
