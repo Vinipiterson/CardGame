@@ -14,13 +14,12 @@ class CARDGAME_API ACgPlayerController : public APlayerController
 public:
 	ACgPlayerController();
 
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	
 protected:
 	virtual void BeginPlay() override;
 
-	//~Camera
-
-	// 1 = First player, 2 = second player
-	UFUNCTION(BlueprintImplementableEvent)
-	AActor* GetViewTargetForPlayer(int32 PlayerID);
-	//~Camera
+public:
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	int32 Team = -1;
 };

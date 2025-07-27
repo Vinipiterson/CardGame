@@ -15,11 +15,11 @@ class CARDGAME_API UCgCardData : public UDataAsset
 {
 	GENERATED_BODY()
 
-protected:
+public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data")
 	FText Name = FText::FromString("No Name");
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data")
-	float Cost = 4.f;
+	int32 Cost = 4;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data")
 	TSoftObjectPtr<UTexture2D> Icon;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data")
@@ -30,8 +30,8 @@ protected:
 	FGameplayTag TerrainTag;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data")
 	FGameplayTagContainer AttackingTerrainTags;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data")
-	TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGive;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data")
-	TArray<TSubclassOf<UGameplayEffect>> EffectsToApply;
+	UPROPERTY(EditDefaultsOnly, Category="Player|AbilitySystem")
+	TArray<TSubclassOf<UGameplayEffect>> InitialGameplayEffects;
+	UPROPERTY(EditDefaultsOnly, Category="Player|AbilitySystem")
+	TArray<TSubclassOf<UGameplayAbility>> InitialGameplayAbilities;
 };
