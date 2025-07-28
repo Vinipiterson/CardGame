@@ -16,7 +16,17 @@ void ACgPlayerController::GetLifetimeReplicatedProps(TArray<class FLifetimePrope
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME(ThisClass, Team);
+	DOREPLIFETIME(ThisClass, TeamTag);
+}
+
+bool ACgPlayerController::IsFromTeam_Implementation(FGameplayTag InTeamTag) const
+{
+	return TeamTag.MatchesTagExact(InTeamTag);
+}
+
+FGameplayTag ACgPlayerController::GetTeamTag_Implementation() const
+{
+	return TeamTag;
 }
 
 void ACgPlayerController::BeginPlay()

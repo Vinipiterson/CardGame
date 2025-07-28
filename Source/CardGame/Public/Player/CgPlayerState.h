@@ -6,6 +6,7 @@
 #include "Data/CgTypes.h"
 #include "GameFramework/PlayerState.h"
 #include "AbilitySystemInterface.h"
+#include "CgCombatInterface.h"
 #include "CgPlayerState.generated.h"
 
 class UCgAbilitySystemComponent;
@@ -16,7 +17,7 @@ class UGameplayEffect;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCardsUpdatedSignature);
 
 UCLASS()
-class CARDGAME_API ACgPlayerState : public APlayerState, public IAbilitySystemInterface
+class CARDGAME_API ACgPlayerState : public APlayerState, public IAbilitySystemInterface, public ICgCombatInterface
 {
 	GENERATED_BODY()
 
@@ -54,6 +55,11 @@ public:
 	//~IAbilitySystemInterface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//~IAbilitySystemInterface
+	
+	//~ICgCombatInterface
+	virtual bool IsFromTeam_Implementation(FGameplayTag InTeamTag) const override;
+	virtual FGameplayTag GetTeamTag_Implementation() const override;
+	//~ICgCombatInterface
 	
 	//~Cards
 protected:

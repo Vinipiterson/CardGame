@@ -3,6 +3,7 @@
 
 #include "Core/CgArenaGameMode.h"
 
+#include "Data/CgTags.h"
 #include "GameFramework/PlayerStart.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/CgPlayerController.h"
@@ -29,6 +30,13 @@ void ACgArenaGameMode::OnPostLogin(AController* NewPlayer)
 
 	if (ACgPlayerController* PC = Cast<ACgPlayerController>(NewPlayer))
 	{
-		PC->Team = GetNumPlayers();
+		if (GetNumPlayers() == 1)
+		{
+			PC->TeamTag = CgTeamTags::Team1;
+		}
+		else
+		{
+			PC->TeamTag = CgTeamTags::Team2;
+		}
 	}
 }

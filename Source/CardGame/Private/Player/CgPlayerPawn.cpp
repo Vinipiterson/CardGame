@@ -29,6 +29,16 @@ void ACgPlayerPawn::OnRep_PlayerState()
 	PS->InitPlayerState(this);
 }
 
+bool ACgPlayerPawn::IsFromTeam_Implementation(FGameplayTag InTeamTag) const
+{
+	return ICgCombatInterface::Execute_IsFromTeam(Controller, InTeamTag);
+}
+
+FGameplayTag ACgPlayerPawn::GetTeamTag_Implementation() const
+{
+	return ICgCombatInterface::Execute_GetTeamTag(Controller);
+}
+
 void ACgPlayerPawn::UseCard_Implementation(const FTransform& Transform)
 {
 	ACgPlayerState* PS = GetPlayerState<ACgPlayerState>();

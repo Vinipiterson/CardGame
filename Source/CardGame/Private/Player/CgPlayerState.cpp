@@ -55,6 +55,16 @@ UAbilitySystemComponent* ACgPlayerState::GetAbilitySystemComponent() const
 	return ASC;
 }
 
+bool ACgPlayerState::IsFromTeam_Implementation(FGameplayTag InTeamTag) const
+{
+	return ICgCombatInterface::Execute_IsFromTeam(GetPlayerController(), InTeamTag);
+}
+
+FGameplayTag ACgPlayerState::GetTeamTag_Implementation() const
+{
+	return ICgCombatInterface::Execute_GetTeamTag(GetPlayerController());
+}
+
 void ACgPlayerState::InitializeCards()
 {
 	while (CardsInHand.Num() != 4) // Select Deck
@@ -80,7 +90,7 @@ void ACgPlayerState::UseCard(const FTransform& Transform)
 {
 	SpawnTransform = Transform;
 
-	ASC->TryActivateAbilitiesByTag(FGameplayTagContainer(CgAbilitieTags::UseCard));
+	ASC->TryActivateAbilitiesByTag(FGameplayTagContainer(CgAbilityTags::UseCard));
 }
 
 void ACgPlayerState::ServerSetCurrentCard_Implementation(FCgCardDefinition InCard)
@@ -105,6 +115,10 @@ void ACgPlayerState::ChooseNextCard()
 void ACgPlayerState::DiscardCard()
 {
 	int32 CardID = CardsInHand.Find(CurrentCard);
-	CardsInHand[CardID] = NextCard;
-	ChooseNextCard();
+
+	if (CardID >= 0)
+	{
+		CardsInHand[CardID] = NextCard;
+    	ChooseNextCard();
+	}
 }

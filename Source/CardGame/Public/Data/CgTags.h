@@ -14,7 +14,13 @@ namespace CgEventTags
 	CARDGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(UseCard);
 }
 
-namespace CgAbilitieTags
+namespace CgAbilityTags
 {
 	CARDGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(UseCard);
+}
+
+namespace CgTeamTags
+{
+	CARDGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Team1);
+	CARDGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Team2);
 }

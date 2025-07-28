@@ -4,16 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
+#include "CgCombatInterface.h"
+#include "GameplayTagContainer.h"
 #include "Data/CgTypes.h"
 #include "GameFramework/Character.h"
 #include "CgEnemy.generated.h"
 
+class UCgCombatAttributeSet;
 class UCgAbilitySystemComponent;
 struct FCgCardDefinition;
 class UCgVitalAttributeSet;
 
 UCLASS()
-class CARDGAME_API ACgEnemy : public ACharacter, public IAbilitySystemInterface
+class CARDGAME_API ACgEnemy : public ACharacter, public IAbilitySystemInterface, public ICgCombatInterface
 {
 	GENERATED_BODY()
 
@@ -29,6 +32,8 @@ public:
 	TObjectPtr<UCgAbilitySystemComponent> ASC;
 	UPROPERTY()
 	TObjectPtr<UCgVitalAttributeSet> VitalAttributeSet;
+	UPROPERTY()
+	TObjectPtr<UCgCombatAttributeSet> CombatAttributeSet;
 	//~GAS
 
 	//~IAbilitySystemInterface
@@ -40,4 +45,14 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetCardDefinition(FCgCardDefinition InDefinition);
+
+	//~Team
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	FGameplayTag TeamTag;
+	//~Team
+
+	//~ICgCombatInterface
+	virtual FGameplayTag GetTeamTag_Implementation() const override;
+	virtual bool IsFromTeam_Implementation(FGameplayTag InTeamTag) const override;
+	//~ICgCombatInterface
 };

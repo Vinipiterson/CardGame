@@ -27,6 +27,16 @@ void ACgTower::BeginPlay()
 	ASC->GiveInitialEffects(TowerData->InitialGameplayEffects, 1);
 }
 
+bool ACgTower::IsFromTeam_Implementation(FGameplayTag InTeamTag) const
+{
+	return TeamTag.MatchesTagExact(InTeamTag);
+}
+
+FGameplayTag ACgTower::GetTeamTag_Implementation() const
+{
+	return TeamTag;
+}
+
 UAbilitySystemComponent* ACgTower::GetAbilitySystemComponent() const
 {
 	return ASC;

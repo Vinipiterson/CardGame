@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CgCombatInterface.h"
 #include "GameFramework/Pawn.h"
 #include "CgPlayerPawn.generated.h"
 
 UCLASS()
-class CARDGAME_API ACgPlayerPawn : public APawn
+class CARDGAME_API ACgPlayerPawn : public APawn, public ICgCombatInterface
 {
 	GENERATED_BODY()
 
@@ -19,4 +20,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Server, Reliable)
 	void UseCard(const FTransform& Transform);
+
+	//~ICgCombatInterface
+	virtual bool IsFromTeam_Implementation(FGameplayTag InTeamTag) const override;
+	virtual FGameplayTag GetTeamTag_Implementation() const override;
+	//~ICgCombatInterface
 };
