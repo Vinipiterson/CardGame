@@ -40,14 +40,14 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//~IAbilitySystemInterface
 
-	UPROPERTY(BlueprintReadOnly, Replicated)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, meta=(ExposeOnSpawn))
 	FCgCardDefinition CardDefinition;
 
 	UFUNCTION(BlueprintCallable)
 	void SetCardDefinition(FCgCardDefinition InDefinition);
 
 	//~Team
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, meta=(ExposeOnSpawn))
 	FGameplayTag TeamTag;
 	//~Team
 
