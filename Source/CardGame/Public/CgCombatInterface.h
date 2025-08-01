@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "GameplayTagContainer.h"
+#include "Data/CgTypes.h"
 #include "CgCombatInterface.generated.h"
 
 // This class does not need to be modified.
@@ -26,4 +27,7 @@ public:
 	bool IsFromTeam(FGameplayTag InTeamTag) const;
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	FGameplayTag GetTeamTag() const;
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	FCgCardDefinition GetCardDefinition() const;
 };

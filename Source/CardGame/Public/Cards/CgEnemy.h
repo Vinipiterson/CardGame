@@ -25,10 +25,11 @@ public:
 
 	//~AActor
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void BeginPlay() override;
 	//~AActor
 	
 	//~GAS
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<UCgAbilitySystemComponent> ASC;
 	UPROPERTY()
 	TObjectPtr<UCgVitalAttributeSet> VitalAttributeSet;
@@ -43,9 +44,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, meta=(ExposeOnSpawn))
 	FCgCardDefinition CardDefinition;
 
-	UFUNCTION(BlueprintCallable)
-	void SetCardDefinition(FCgCardDefinition InDefinition);
-
 	//~Team
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, meta=(ExposeOnSpawn))
 	FGameplayTag TeamTag;
@@ -54,5 +52,6 @@ public:
 	//~ICgCombatInterface
 	virtual FGameplayTag GetTeamTag_Implementation() const override;
 	virtual bool IsFromTeam_Implementation(FGameplayTag InTeamTag) const override;
+	virtual FCgCardDefinition GetCardDefinition_Implementation() const override;
 	//~ICgCombatInterface
 };

@@ -30,8 +30,22 @@ public:
 	FGameplayTag TerrainTag;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data")
 	FGameplayTagContainer AttackingTerrainTags;
-	UPROPERTY(EditDefaultsOnly, Category="Player|AbilitySystem")
+	UPROPERTY(EditDefaultsOnly, Category="AbilitySystem")
 	TArray<TSubclassOf<UGameplayEffect>> InitialGameplayEffects;
-	UPROPERTY(EditDefaultsOnly, Category="Player|AbilitySystem")
+	UPROPERTY(EditDefaultsOnly, Category="AbilitySystem")
 	TArray<TSubclassOf<UGameplayAbility>> InitialGameplayAbilities;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Malee")
+	float BaseDamage = 100.f;
+
+	UPROPERTY(EditDefaultsOnly, Category="Malee")
+	TArray<TObjectPtr<UAnimMontage>> MaleeMontages;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Malee")
+	FName MaleeSocketName;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Malee")
+	float MaleeTraceRadius;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Malee")
+	bool bMaleeSingleHit;
+
+	UFUNCTION(BlueprintCallable)
+	UAnimMontage* GetRandomMaleeMontage() const;
 };

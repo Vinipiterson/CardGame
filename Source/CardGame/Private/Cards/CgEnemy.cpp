@@ -30,14 +30,9 @@ void ACgEnemy::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLi
 	DOREPLIFETIME(ThisClass, TeamTag);
 }
 
-UAbilitySystemComponent* ACgEnemy::GetAbilitySystemComponent() const
+void ACgEnemy::BeginPlay()
 {
-	return ASC;
-}
-
-void ACgEnemy::SetCardDefinition(FCgCardDefinition InDefinition)
-{
-	CardDefinition = InDefinition;
+	Super::BeginPlay();
 
 	ASC->InitAbilityActorInfo(this, this);
 
@@ -48,6 +43,11 @@ void ACgEnemy::SetCardDefinition(FCgCardDefinition InDefinition)
 	}
 }
 
+UAbilitySystemComponent* ACgEnemy::GetAbilitySystemComponent() const
+{
+	return ASC;
+}
+
 FGameplayTag ACgEnemy::GetTeamTag_Implementation() const
 {
 	return TeamTag;
@@ -56,4 +56,9 @@ FGameplayTag ACgEnemy::GetTeamTag_Implementation() const
 bool ACgEnemy::IsFromTeam_Implementation(FGameplayTag InTeamTag) const
 {
 	return TeamTag.MatchesTagExact(InTeamTag);
+}
+
+FCgCardDefinition ACgEnemy::GetCardDefinition_Implementation() const
+{
+	return CardDefinition;
 }
