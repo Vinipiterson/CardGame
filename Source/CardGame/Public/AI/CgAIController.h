@@ -16,6 +16,14 @@ class CARDGAME_API ACgAIController : public AAIController
 public:
 	ACgAIController();
 
+	virtual void OnPossess(APawn* InPawn) override;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Enemy")
 	TObjectPtr<UStateTreeAIComponent> StateTree;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Enemy")
+	int32 AvoidanceQuality = 4;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Enemy")
+	float AvoidanceQueryRange = 200.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Enemy")
+	float AvoidanceSeparationWeight = 3.f;
 };
