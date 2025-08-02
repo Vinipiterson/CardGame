@@ -34,8 +34,6 @@ public:
 	TArray<TSubclassOf<UGameplayEffect>> InitialGameplayEffects;
 	UPROPERTY(EditDefaultsOnly, Category="AbilitySystem")
 	TArray<TSubclassOf<UGameplayAbility>> InitialGameplayAbilities;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Malee")
-	float BaseDamage = 100.f;
 
 	UPROPERTY(EditDefaultsOnly, Category="Malee")
 	TArray<TObjectPtr<UAnimMontage>> MaleeMontages;

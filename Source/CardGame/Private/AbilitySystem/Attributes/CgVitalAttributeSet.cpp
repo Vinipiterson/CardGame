@@ -2,6 +2,10 @@
 
 #include "AbilitySystem/Attributes/CgVitalAttributeSet.h"
 
+#include "GameplayEffectExtension.h"
+#include "Data/CgTags.h"
+#include "Interfaces/CgVitalInterface.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Net/UnrealNetwork.h"
 
 UCgVitalAttributeSet::UCgVitalAttributeSet()
@@ -29,6 +33,26 @@ void UCgVitalAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribut
 void UCgVitalAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
+
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		if (Data.EvaluatedData.Magnitude < 0.f) // Lost Health
+		{
+			if (GetHealth() <= 0.f)
+			{
+				GetOwningAbilitySystemComponent()->TryActivateAbilitiesByTag(FGameplayTagContainer(CgAbilityTags::Die));
+			}
+			else
+			{
+				GetOwningAbilitySystemComponent()->TryActivateAbilitiesByTag(FGameplayTagContainer(CgAbilityTags::HitReact));
+			}
+		}
+	}
+}
+
+void UCgVitalAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
+{
+	Super::PostAttributeChange(Attribute, OldValue, NewValue);
 }
 
 void UCgVitalAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const

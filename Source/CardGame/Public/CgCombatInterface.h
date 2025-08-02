@@ -30,4 +30,12 @@ public:
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	FCgCardDefinition GetCardDefinition() const;
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void SetCombatTarget(AActor* NewTarget);
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	AActor* GetCombatTarget();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, DisplayName = "SetFacingWarpTargetLocation")
+	void K2_SetFacingWarpTargetLocation(FVector InLocation);
 };

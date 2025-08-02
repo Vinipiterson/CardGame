@@ -62,3 +62,27 @@ FCgCardDefinition ACgEnemy::GetCardDefinition_Implementation() const
 {
 	return CardDefinition;
 }
+
+void ACgEnemy::NotifyDeath_Implementation()
+{
+}
+
+USoundBase* ACgEnemy::GetDeathSound_Implementation()
+{
+	return DeathSound;
+}
+
+USoundBase* ACgEnemy::GetHitSound_Implementation()
+{
+	return HitSound;
+}
+
+AActor* ACgEnemy::GetCombatTarget_Implementation()
+{
+	return CombatTarget;
+}
+
+void ACgEnemy::SetCombatTarget_Implementation(AActor* NewTarget)
+{
+	CombatTarget = NewTarget;
+}
