@@ -3,7 +3,7 @@
 
 #include "CardGame/Public/Data/CgCardData.h"
 
-UAnimMontage* UCgCardData::GetRandomMaleeMontage() const
+UAnimMontage* UCgCardData::GetRandomAttackMontage() const
 {
-	return MaleeMontages[FMath::RandRange(0, MaleeMontages.Num()-1)];
+	return AttackMontages[FMath::RandRange(0, AttackMontages.Num()-1)];
 }

@@ -9,6 +9,7 @@
 #include "GameFramework/Actor.h"
 #include "CgTower.generated.h"
 
+class ACgTowerGuardian;
 class UCgTowerData;
 class UGameplayEffect;
 class UGameplayAbility;

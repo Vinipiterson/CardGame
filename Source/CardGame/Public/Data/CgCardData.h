@@ -7,10 +7,11 @@
 #include "Engine/DataAsset.h"
 #include "CgCardData.generated.h"
 
+class ACgProjectile;
 class UGameplayAbility;
 class UGameplayEffect;
 
-UCLASS()
+UCLASS(AutoCollapseCategories=("Attack|Ranged", "Attack|Malee"))
 class CARDGAME_API UCgCardData : public UDataAsset
 {
 	GENERATED_BODY()
@@ -29,21 +30,25 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data")
 	FGameplayTag TerrainTag;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data")
+	FGameplayTag EnemyType;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data")
 	FGameplayTagContainer AttackingTerrainTags;
 	UPROPERTY(EditDefaultsOnly, Category="AbilitySystem")
 	TArray<TSubclassOf<UGameplayEffect>> InitialGameplayEffects;
 	UPROPERTY(EditDefaultsOnly, Category="AbilitySystem")
 	TArray<TSubclassOf<UGameplayAbility>> InitialGameplayAbilities;
 
-	UPROPERTY(EditDefaultsOnly, Category="Malee")
-	TArray<TObjectPtr<UAnimMontage>> MaleeMontages;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Malee")
-	FName MaleeSocketName;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Malee")
+	UPROPERTY(EditDefaultsOnly, Category="Attack")
+	TArray<TObjectPtr<UAnimMontage>> AttackMontages;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Attack")
+	FName AttackSocketName;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Attack|Malee")
 	float MaleeTraceRadius;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Malee")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Attack|Malee")
 	bool bMaleeSingleHit;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Attack|Ranged")
+	TSubclassOf<ACgProjectile> ProjectileClass;
 
 	UFUNCTION(BlueprintCallable)
-	UAnimMontage* GetRandomMaleeMontage() const;
+	UAnimMontage* GetRandomAttackMontage() const;
 };

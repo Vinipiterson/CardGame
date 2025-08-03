@@ -2,7 +2,9 @@
 
 #include "AI/CgAIController.h"
 
+#include "CgCombatInterface.h"
 #include "Components/StateTreeAIComponent.h"
+#include "Data/CgTags.h"
 #include "Navigation/CrowdFollowingComponent.h"
 
 ACgAIController::ACgAIController()
@@ -28,13 +30,22 @@ void ACgAIController::OnPossess(APawn* InPawn)
 			Component->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Good);
 		else if (AvoidanceQuality == 4)
 			Component->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::High);
-
-		Component->SetAvoidanceGroup(1);
-		Component->SetGroupsToAvoid(1);
+		
 		Component->SetCrowdCollisionQueryRange(AvoidanceQueryRange);
 		Component->SetCrowdSeparation(true);
 		Component->SetCrowdSeparationWeight(AvoidanceSeparationWeight);
-		
+
+		FGameplayTag TeamTag = ICgCombatInterface::Execute_GetTeamTag(InPawn);
+		if (TeamTag.MatchesTagExact(CgTeamTags::Team1))
+		{
+			Component->SetAvoidanceGroup(1);
+			Component->SetGroupsToAvoid(2);
+		}
+		else
+		{
+			Component->SetAvoidanceGroup(2);
+			Component->SetGroupsToAvoid(1);
+		}
 	}
 }
 
