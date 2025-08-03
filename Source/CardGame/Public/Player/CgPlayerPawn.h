@@ -19,7 +19,7 @@ public:
 	virtual void OnRep_PlayerState() override;
 
 	UFUNCTION(BlueprintCallable, Server, Reliable)
-	void UseCard(const FTransform& Transform);
+	void UseCard();
 
 	//~ICgCombatInterface
 	virtual bool IsFromTeam_Implementation(FGameplayTag InTeamTag) const override;

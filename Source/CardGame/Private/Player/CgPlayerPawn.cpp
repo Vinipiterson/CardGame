@@ -39,10 +39,10 @@ FGameplayTag ACgPlayerPawn::GetTeamTag_Implementation() const
 	return ICgCombatInterface::Execute_GetTeamTag(Controller);
 }
 
-void ACgPlayerPawn::UseCard_Implementation(const FTransform& Transform)
+void ACgPlayerPawn::UseCard_Implementation()
 {
 	ACgPlayerState* PS = GetPlayerState<ACgPlayerState>();
 	check(PS)
 
-	PS->UseCard(Transform);
+	PS->UseCard();
 }

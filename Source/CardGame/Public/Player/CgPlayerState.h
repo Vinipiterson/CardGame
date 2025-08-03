@@ -9,6 +9,7 @@
 #include "CgCombatInterface.h"
 #include "CgPlayerState.generated.h"
 
+class UCgCombatAttributeSet;
 class UCgAbilitySystemComponent;
 class UGameplayAbility;
 class UCgPlayerAttributeSet;
@@ -41,7 +42,9 @@ protected:
 	UPROPERTY()
 	TObjectPtr<UCgAbilitySystemComponent> ASC;
 	UPROPERTY()
-	TObjectPtr<UCgPlayerAttributeSet> AttributeSet;
+	TObjectPtr<UCgPlayerAttributeSet> VitalAttributeSet;
+	UPROPERTY()
+	TObjectPtr<UCgCombatAttributeSet> CombatAttributeSet;
 	UPROPERTY(EditDefaultsOnly, Category="Player|AbilitySystem")
 	TArray<TSubclassOf<UGameplayEffect>> InitialGameplayEffects;
 	UPROPERTY(EditDefaultsOnly, Category="Player|AbilitySystem")
@@ -68,6 +71,8 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<FCgCardDefinition> Deck;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FGameplayTag SpellTag;
 	UPROPERTY(BlueprintReadOnly)
 	TArray<FCgCardDefinition> CardsInHand;
 	UPROPERTY(BlueprintReadOnly)
@@ -75,8 +80,6 @@ protected:
 	
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	FCgCardDefinition CurrentCard;
-	UPROPERTY(Replicated, BlueprintReadOnly)
-	FTransform SpawnTransform;
 
 public:
 	UPROPERTY(BlueprintAssignable)
@@ -84,8 +87,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FCgCardDefinition GetCurrentCard() const { return CurrentCard; }
-	UFUNCTION(BlueprintCallable)
-	FTransform GetSpawnTransform() const { return SpawnTransform; }
 
 protected:
 	void InitializeCards();
@@ -100,6 +101,6 @@ protected:
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void UseCard(const FTransform& Transform);
+	void UseCard();
 	//~Cards
 };

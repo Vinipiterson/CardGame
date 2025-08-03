@@ -8,6 +8,7 @@
 #include "Data/CgTags.h"
 #include "NativeGameplayTags.h"
 #include "AbilitySystem/CgAbilitySystemComponent.h"
+#include "AbilitySystem/Attributes/CgCombatAttributeSet.h"
 #include "AbilitySystem/Data/CgCardActivationData.h"
 
 ACgPlayerState::ACgPlayerState()
@@ -19,7 +20,8 @@ ACgPlayerState::ACgPlayerState()
 	ASC->SetIsReplicated(true);
 	ASC->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
-	AttributeSet = CreateDefaultSubobject<UCgPlayerAttributeSet>(TEXT("AttributeSet"));
+	VitalAttributeSet = CreateDefaultSubobject<UCgPlayerAttributeSet>(TEXT("VitalAttributeSet"));
+	CombatAttributeSet = CreateDefaultSubobject<UCgCombatAttributeSet>(TEXT("CombatAttributeSet"));
 }
 
 void ACgPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -47,7 +49,7 @@ void ACgPlayerState::InitPlayerState(APawn* AvatarActor)
 
 UCgPlayerAttributeSet* ACgPlayerState::GetAttributeSet() const
 {
-	return AttributeSet;
+	return VitalAttributeSet;
 }
 
 UAbilitySystemComponent* ACgPlayerState::GetAbilitySystemComponent() const
@@ -86,11 +88,16 @@ void ACgPlayerState::SetCurrentCard(FCgCardDefinition InCard)
 		ServerSetCurrentCard(InCard);
 }
 
-void ACgPlayerState::UseCard(const FTransform& Transform)
+void ACgPlayerState::UseCard()
 {
-	SpawnTransform = Transform;
-
-	ASC->TryActivateAbilitiesByTag(FGameplayTagContainer(CgAbilityTags::UseCard));
+	if (CurrentCard.CardData->CardType.MatchesTagExact(SpellTag))
+	{
+		ASC->TryActivateAbilitiesByTag(FGameplayTagContainer(CgAbilityTags::UseSpell));
+	}
+	else
+	{
+		ASC->TryActivateAbilitiesByTag(FGameplayTagContainer(CgAbilityTags::UseCard));
+	}
 }
 
 void ACgPlayerState::ServerSetCurrentCard_Implementation(FCgCardDefinition InCard)

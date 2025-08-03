@@ -15,6 +15,7 @@ namespace CgEventTags
 namespace CgAbilityTags
 {
 	UE_DEFINE_GAMEPLAY_TAG(UseCard, FName{TEXTVIEW("CardGame.Ability.UseCard")});
+	UE_DEFINE_GAMEPLAY_TAG(UseSpell, FName{TEXTVIEW("CardGame.Ability.UseSpell")});
 	UE_DEFINE_GAMEPLAY_TAG(HitReact, FName{TEXTVIEW("CardGame.Ability.HitReact")});
 	UE_DEFINE_GAMEPLAY_TAG(Die, FName{TEXTVIEW("CardGame.Ability.Die")});
 }
